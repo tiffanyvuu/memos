@@ -5,6 +5,8 @@ import Icon from "@/components/Icon";
 import showPreviewMarkdownDialog from "@/components/PreviewMarkdownDialog";
 import { EditorRefActions } from "../Editor";
 
+let checkboxEnabled:boolean = false;
+
 interface Props {
   editorRef: React.RefObject<EditorRefActions>;
 }
@@ -31,6 +33,9 @@ const MarkdownMenu = (props: Props) => {
   };
 
   const handleCheckboxClick = () => {
+
+    checkboxEnabled = true;
+
     if (!editorRef.current) {
       return;
     }

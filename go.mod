@@ -37,26 +37,36 @@ require (
 )
 
 require (
+	dario.cat/mergo v1.0.0 // indirect
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
+	github.com/bep/godartsass v0.16.0 // indirect
+	github.com/bep/golibsass v1.1.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
+	github.com/cli/safeexec v1.0.0 // indirect
+	github.com/cosmtrek/air v1.49.0 // indirect
+	github.com/creack/pty v1.1.18 // indirect
 	github.com/desertbit/timer v0.0.0-20180107155436-c41aec40b27f // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
+	github.com/fatih/color v1.14.1 // indirect
 	github.com/go-openapi/jsonpointer v0.20.2 // indirect
 	github.com/go-openapi/jsonreference v0.20.4 // indirect
 	github.com/go-openapi/spec v0.20.14 // indirect
 	github.com/go-openapi/swag v0.22.9 // indirect
+	github.com/gohugoio/hugo v0.111.3 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rs/cors v1.10.1 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/stoewer/go-strcase v1.3.0 // indirect
+	github.com/tdewolff/parse/v2 v2.6.5 // indirect
 	golang.org/x/image v0.15.0 // indirect
 	golang.org/x/tools v0.17.0 // indirect
 	google.golang.org/genproto v0.0.0-20240125205218-1f4bbc51befe // indirect

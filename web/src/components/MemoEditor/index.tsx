@@ -25,6 +25,7 @@ import RelationListView from "./RelationListView";
 import ResourceListView from "./ResourceListView";
 import { handleEditorKeydownWithMarkdownShortcuts, hyperlinkHighlightedText } from "./handlers";
 import { MemoEditorContext } from "./types";
+import { EnumDescriptorProto_EnumReservedRange } from "@/types/proto/google/protobuf/descriptor";
 
 interface Props {
   className?: string;
@@ -46,7 +47,7 @@ interface State {
 }
 
 const MemoEditor = (props: Props) => {
-  const { className, editorClassName, cacheKey, memoId, parentMemoId, autoFocus, onConfirm } = props;
+ const { className, editorClassName, cacheKey, memoId, parentMemoId, autoFocus, onConfirm } = props;
   const { i18n } = useTranslation();
   const t = useTranslate();
   const contentCacheKey = `memo-editor-${cacheKey}`;
@@ -123,10 +124,11 @@ const MemoEditor = (props: Props) => {
       if (event.key === "Enter") {
         handleSaveBtnClick();
         return;
-      }
+      } 
 
       handleEditorKeydownWithMarkdownShortcuts(event, editorRef.current);
     }
+
     if (event.key === "Tab") {
       event.preventDefault();
       const tabSpace = " ".repeat(TAB_SPACE_WIDTH);
@@ -138,6 +140,64 @@ const MemoEditor = (props: Props) => {
       }
       return;
     }
+
+    ////////// THE CODE I ADDED //////////
+
+    if (event.key === "Enter") {
+      const cursorPosition = editorRef.current.getCursorPosition();
+      const currentLineNumber = editorRef.current.getCursorLineNumber();
+      const currentLine = editorRef.current.getLine(currentLineNumber);
+
+      console.log(currentLineNumber);
+      
+      if (/^- \[ \] /.test(currentLine)) {
+        if (event.key === "Enter" && !currentLine.slice(6)) {
+          editorRef.current?.setLine(currentLineNumber, "");
+          event.preventDefault();
+        }
+        else {
+          const newLine = "- [ ] ";
+          editorRef.current.insertText("", "\n" + newLine);
+          event.preventDefault();
+        }
+      }
+
+      else if (/^- /.test(currentLine) || /^\* /.test(currentLine) || /^\+ /.test(currentLine)) {
+        if (event.key === "Enter" && !currentLine.slice(2)) {
+          editorRef.current?.setLine(currentLineNumber, "");
+          event.preventDefault();
+        }
+        else {
+          let newLine = "";
+          if (/^- /.test(currentLine)) {
+            newLine = "- ";
+          }
+          else if (/^\* /.test(currentLine)) {
+            newLine = "* "
+          }
+          else if (/^\+ /.test(currentLine)) {
+            newLine = "+ "
+          }
+
+          editorRef.current.insertText("", "\n" + newLine);
+          event.preventDefault(); 
+        }
+      }
+
+      else if (/^[1-9][0-9]*. /.test(currentLine)) {
+        if (event.key === "Enter" && !currentLine.slice(3)) {
+          editorRef.current?.setLine(currentLineNumber, "");
+          event.preventDefault();
+        }
+        else {
+          const newLine =  (Number(currentLine[0])+1) + ". ";
+          editorRef.current.insertText("", "\n" + newLine);
+          event.preventDefault(); 
+        }
+      }
+
+    }
+
   };
 
   const handleMemoVisibilityChange = (visibility: Visibility) => {
@@ -352,6 +412,7 @@ const MemoEditor = (props: Props) => {
   );
 
   const allowSave = (hasContent || state.resourceList.length > 0) && !state.isUploadingResource && !state.isRequesting;
+  
 
   return (
     <MemoEditorContext.Provider
